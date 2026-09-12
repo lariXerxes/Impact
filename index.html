@@ -1762,7 +1762,7 @@ window.onload = function() {
 </script>
 
 <!-- ============================= -->
-<!-- 🤟 LIBRAS - IMPACT -->
+<!-- 🔊 ÁUDIO + 🤟 LIBRAS - IMPACT -->
 <!-- ============================= -->
 
 <div vw class="enabled">
@@ -1777,6 +1777,43 @@ window.onload = function() {
 
 <script>
     new window.VLibras.Widget('https://vlibras.gov.br/app');
+
+    // 🔊 Fazer o navegador ler a tela
+    function falarPagina() {
+        if (!('speechSynthesis' in window)) {
+            alert('Seu navegador não oferece suporte à leitura de voz.');
+            return;
+        }
+
+        speechSynthesis.cancel();
+
+        const telaAtual = document.querySelector('.screen-view.active');
+
+        let texto = telaAtual
+            ? telaAtual.innerText
+            : document.body.innerText;
+
+        texto = texto.replace(/\s+/g, ' ').trim();
+
+        if (!texto) {
+            alert('Não há conteúdo para ouvir.');
+            return;
+        }
+
+        const fala = new SpeechSynthesisUtterance(texto);
+
+        fala.lang = 'pt-BR';
+        fala.rate = 0.9;
+        fala.pitch = 1;
+        fala.volume = 1;
+
+        speechSynthesis.speak(fala);
+    }
+
+    // ⏹️ Parar a leitura
+    function pararLeitura() {
+        speechSynthesis.cancel();
+    }
 
     // 🤟 Abrir o VLibras
     function abrirLibras() {
