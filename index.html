@@ -1768,7 +1768,6 @@ window.onload = function() {
 <!-- VLibras -->
 <div vw class="enabled">
     <div vw-access-button class="active"></div>
-
     <div vw-plugin-wrapper>
         <div class="vw-plugin-top-wrapper"></div>
     </div>
@@ -1777,55 +1776,53 @@ window.onload = function() {
 <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
 
 <script>
-    new window.VLibras.Widget('https://vlibras.gov.br/app');
+new window.VLibras.Widget('https://vlibras.gov.br/app');
 
-    // 🔊 Fazer o navegador ler a tela
-    function falarPagina() {
-        if (!('speechSynthesis' in window)) {
-            alert('Seu navegador não oferece suporte à leitura de voz.');
-            return;
-        }
-
-        speechSynthesis.cancel();
-
-        const telaAtual = document.querySelector('.screen-view.active');
-
-        let texto = telaAtual
-            ? telaAtual.innerText
-            : 'Bem-vindo ao IMPACT. Conectando recursos. Transformando Itapetininga.';
-
-        texto = texto.replace(/\s+/g, ' ').trim();
-
-        if (!texto) {
-            alert('Não há conteúdo para ouvir.');
-            return;
-        }
-
-        const fala = new SpeechSynthesisUtterance(texto);
-
-        fala.lang = 'pt-BR';
-        fala.rate = 0.9;
-        fala.pitch = 1;
-        fala.volume = 1;
-
-        speechSynthesis.speak(fala);
+// 🔊 Fazer o navegador ler a tela
+function falarPagina() {
+    if (!('speechSynthesis' in window)) {
+        alert('Seu navegador não oferece suporte à leitura de voz.');
+        return;
     }
 
-    // ⏹️ Parar a leitura
-    function pararLeitura() {
-        if ('speechSynthesis' in window) {
-            speechSynthesis.cancel();
-        }
+    speechSynthesis.cancel();
+
+    const telaAtual = document.querySelector('.screen-view.active');
+
+    let texto = telaAtual
+        ? telaAtual.innerText
+        : 'Bem-vindo ao IMPACT. Conectando recursos. Transformando Itapetininga.';
+
+    texto = texto.replace(/\s+/g, ' ').trim();
+
+    if (!texto) {
+        alert('Não há conteúdo para ouvir.');
+        return;
     }
 
-    // 🤟 Abrir o VLibras
-    function abrirLibras() {
-        const botaoVLibras = document.querySelector('[vw-access-button]');
+    const fala = new SpeechSynthesisUtterance(texto);
 
-        if (botaoVLibras) {
-            botaoVLibras.click();
-        }
+    fala.lang = 'pt-BR';
+    fala.rate = 0.9;
+    fala.pitch = 1;
+    fala.volume = 1;
+
+    speechSynthesis.speak(fala);
+}
+
+// ⏹️ Parar a leitura
+function pararLeitura() {
+    speechSynthesis.cancel();
+}
+
+// 🤟 Abrir o VLibras
+function abrirLibras() {
+    const botaoVLibras = document.querySelector('[vw-access-button]');
+
+    if (botaoVLibras) {
+        botaoVLibras.click();
     }
+}
 </script>
 
 </body>
