@@ -1754,8 +1754,14 @@
             // Default screen is 'inicio'
             switchScreen('inicio');
         };
-    </script>
-    <!-- ============================= -->
+  // INITIAL ONLOAD SETUP
+window.onload = function() {
+    // Default screen is 'inicio'
+    switchScreen('inicio');
+};
+</script>
+
+<!-- ============================= -->
 <!-- 🔊 ÁUDIO + 🤟 LIBRAS - IMPACT -->
 <!-- ============================= -->
 
@@ -1790,6 +1796,11 @@
 
         texto = texto.replace(/\s+/g, ' ').trim();
 
+        if (!texto) {
+            alert('Não há conteúdo para ouvir.');
+            return;
+        }
+
         const fala = new SpeechSynthesisUtterance(texto);
 
         fala.lang = 'pt-BR';
@@ -1802,7 +1813,9 @@
 
     // ⏹️ Parar a leitura
     function pararLeitura() {
-        speechSynthesis.cancel();
+        if ('speechSynthesis' in window) {
+            speechSynthesis.cancel();
+        }
     }
 
     // 🤟 Abrir o VLibras
@@ -1811,30 +1824,9 @@
 
         if (botaoVLibras) {
             botaoVLibras.click();
-
-            <script>
-function falarPagina() {
-    window.speechSynthesis.cancel();
-
-    const texto = document.body.innerText;
-
-    if (!texto.trim()) {
-        alert("Não há conteúdo para ouvir.");
-        return;
-    }
-
-    const fala = new SpeechSynthesisUtterance(texto);
-
-    fala.lang = "pt-BR";
-    fala.rate = 0.9;
-    fala.pitch = 1;
-    fala.volume = 1;
-
-    window.speechSynthesis.speak(fala);
-}
-</script>
         }
     }
 </script>
+
 </body>
 </html>
